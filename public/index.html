@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SmartList</title>
+
+	<link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap-theme.css">
+	<link rel="shortcut icon" type="image/png" href="img/favicon.png">
+</head>
+<body ng-app="smartlist" class="container">
+	<div ng-view></div>
+	
+
+	<script src="vendor/angular/angular.js"></script>
+	<script src="vendor/angular-route/angular-route.js"></script>
+	<script src="vendor/angular-resource/angular-resource.js"></script>
+	
+	<script src="js/main.js"></script>
+	<script src="js/controllers/listaController.js"></script>
+	<script src="js/controllers/listasController.js"></script>
+	<script src="js/services/ListaService.js"></script>
+	<script src="js/services/InterceptorService.js"></script>
+
+</body>
+</html>

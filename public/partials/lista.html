@@ -1,0 +1,29 @@
+<h1 class="text-center">Lista</h1>
+<p ng-show="mensagem.texto">{{mensagem.texto}}</p>
+<form ng-submit="salva()">
+	<div class="form-group">
+		<label for="nome">Nome completo</label>
+		<input type="text" class="form-control" id="nome" name="nome" required ng-model="lista.nome">
+	</div>
+	<div class="form-group">
+		<label for="email">Email</label>
+		<div class="input-group">
+			<span class="input-group-addon">@</span>
+			<input type="email" class="form-control" id="email" name="email" ng-model="lista.email" 
+			placeholder="email@exemplo.com" required>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="emergencia">Emergência</label>
+		<select id="emergencia"	class="form-control"
+			ng-model="lista.emergencia"
+			ng-options="lista._id as lista.nome for lista in listas">
+		</select>
+	</div>
+	<div>
+		<button type="submit" class="btn btn-primary">
+			Salvar
+		</button>
+		<a href="#/" class="btn btn-default">Voltar</a>
+	</div>
+</form>
