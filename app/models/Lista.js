@@ -14,14 +14,17 @@ module.exports = function() {
 		},
 		itens: [{
 			codigo: Number,
-			descricao: String,
+			descricao: {
+				type: String, 
+				required : true
+			},
 			quantidade: Number,
 			preco: Number,
 			checked: Boolean
 		}],
 		notificacoes: [{
 			dataHora: {
-            	type: Date
+            	type: Timestamp
         	},
 			tipo: {
 				type: String,
