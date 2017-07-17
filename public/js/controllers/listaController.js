@@ -33,7 +33,6 @@
 		};
 
 		function salva(lista) {
-			console.log('listaController... ');
 			$scope.lista.$save().then(function() {
 				$scope.mensagem = {texto: 'Lista salva com sucesso'};
 				Lista.get(
