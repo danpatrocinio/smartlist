@@ -1,41 +1,53 @@
-angular.module('smartlist').controller('ListasCtrl',
-	function($scope, Lista) {
+(function() {
+	
+	'use strict';
+	
+	angular.module('smartlist').controller('ListasCtrl',ListasCtrl);
 
-		$scope.mensagem = {texto: ''};
+	ListasCtrl.$inject = ['Lista','$scope'];
+	
+	function ListasCtrl(Lista, $scope) {
 
-		$scope.listas = [];
+			$scope.mensagem = {texto: ''};
+			$scope.listas = [];
+			$scope.filtro = '';
 
-		$scope.filtro = '';
+			$scope.buscaListas = buscaListas;
+			$scope.remove = remove;
+			$scope.init = init;
 
-		function buscaListas() {
-			Lista.query(
-					function(data) {
-						$scope.listas = data;
-						$scope.mensagem = {};
-					},
-					function(erro) {
-						console.log(erro);
-						$scope.mensagem = {texto : 'Não foi possível obter nenhuma lista.'};
-					}
-			);
-		};
-
-		$scope.remove = function(lista) {
-			if (confirm('Tem certeza que quer remover esta lista?')) {
-				Lista.delete(
-					{id: lista._id}, 
-					buscaListas, 
-					function(erro) {
-						console.log(erro);
-						$scope.mensagem = {texto : 'Não foi possível remover a lista.'};
-					}
+			function buscaListas() {
+				console.log('buscaListas()');
+				Lista.query(
+						function(data) {
+							$scope.listas = data;
+							$scope.mensagem = {};
+						},
+						function(erro) {
+							console.log(erro);
+							$scope.mensagem = {texto : 'Não foi possível obter nenhuma lista.'};
+						}
 				);
 			};
-		};
 
-		$scope.init = function() {
-			buscaListas();
-		};
+			function remove(lista) {
+				if (confirm('Tem certeza que quer remover esta lista?')) {
+					Lista.delete(
+						{id: lista._id}, 
+						buscaListas, 
+						function(erro) {
+							console.log(erro);
+							$scope.mensagem = {texto : 'Não foi possível remover a lista.'};
+						}
+					);
+				};
+			};
 
-		$scope.init();
-	});
+			function init() {
+				console.log('Inicializando app...');
+				buscaListas();
+			};
+
+			init();
+		}
+})();

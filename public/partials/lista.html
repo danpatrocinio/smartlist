@@ -1,25 +1,81 @@
-<h1 class="text-center">Lista</h1>
+<h1 class="text-left">Editando lista {{!!lista.titulo ? lista.titulo : ''}}</h1>
+<br>
 <p ng-show="mensagem.texto">{{mensagem.texto}}</p>
-<form ng-submit="salva()">
-	<div class="form-group">
-		<label for="nome">Nome completo</label>
-		<input type="text" class="form-control" id="nome" name="nome" required ng-model="lista.nome">
-	</div>
-	<div class="form-group">
-		<label for="email">Email</label>
-		<div class="input-group">
-			<span class="input-group-addon">@</span>
-			<input type="email" class="form-control" id="email" name="email" ng-model="lista.email" 
-			placeholder="email@exemplo.com" required>
+
+<form ng-submit="salva(lista)">
+		<div class="form-inline">
+			<div class="col-md-6">
+				<label for="titulo">Título: </label>
+				<input type="text" size="55" class="form-control" id="titulo" name="titulo" placeholder="Título..." required ng-model="lista.titulo">
+			</div>
+			<div class="col-md-3">
+				<label for="tipo">Tipo da lista: </label>
+				<select id="tipo" class="form-control" ng-model="lista.tipo" ng-options="tipo for tipo in tipos"></select>
+			</div>
+			<div class="col-md-1">
+				<span class="badge">{{lista.itens.length}} itens</span>
+			</div>
+			<div class="col-md-2">
+				<a class="btn btn-sm btn-success" ng-click="addItem()">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					Adicionar item
+				</a>
+			</div>
 		</div>
+	<!--	
+	<div class="col-xs-offset-2 col-xs-8 col-md-offset-3 col-md-6 col-offset-3">
+		<ul class="nav nav-pills">
+			<li role="presentation" ng-class="{active: lista.tipo === 'MERCADO'}">
+				<a href="" ng-click="lista.tipo = 'MERCADO'"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"> Mercado</span></a>
+			</li>
+			<li role="presentation" ng-class="{active: lista.tipo === 'TAREFAS'}">
+				<a href="" ng-click="lista.tipo = 'TAREFAS'">
+				<span class="glyphicon glyphicon-tasks" aria-hidden="true"> Tarefas</span></a>
+			</li>
+		</ul>
 	</div>
-	<div class="form-group">
-		<label for="emergencia">Emergência</label>
-		<select id="emergencia"	class="form-control"
-			ng-model="lista.emergencia"
-			ng-options="lista._id as lista.nome for lista in listas">
-		</select>
+	-->
+
+	<br/><br><br>
+	<div class="panel panel-default table-responsive colxs-12 col-md-12">
+		<table class="table table-hover">
+			<tr>
+				<th><span class="glyphicon glyphicon-check" aria-hidden="true"></span></th>
+				<th>{{lista.tipo==='Tarefas' ? 'Tarefa' : 'Produto'}}</th>
+				<th ng-show="lista.tipo==='Tarefas'" class="text-center">Noficações</th>
+				<th ng-show="lista.tipo==='Mercado'" class="text-center">Qtd</th>
+				<th ng-show="lista.tipo==='Mercado'" class="text-center">Preço</th>
+				<th class="text-center">Excluir</th>
+			</tr>
+			<tr ng-repeat="item in lista.itens">
+				<td><input type="checkbox" ng-model="item.checked"></td>
+				<td ng-class="{strike: item.checked}">
+					<input type="text" ng-model="item.descricao" class="form-control h30">
+				</td>
+				<td ng-show="lista.tipo==='Mercado'" class="text-center col-sm-3 col-xs-6">
+					<input type="number" ng-model="item.quantidade" class="form-control h30">
+				</td>
+				<td ng-show="lista.tipo==='Mercado'" class="text-center col-sm-3 col-xs-6">
+					<input type="text" ng-model="item.preco" class="form-control h30">
+				</td>
+				<td ng-show="lista.tipo==='Tarefas'" class="text-center">
+					<a href="#/lista" class="btn" title="notificações" >
+						<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+					</a>
+				</td>
+				<td class="text-center">
+					<a class="btn" title="Remover" ng-click="removeItem(item)">
+						<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+					</a>
+				</td>
+			</tr>
+		</table>
 	</div>
+	
+	<!-- <br><br>
+	<textarea class="form-control" disabled="disabled" rows="10" cols="80">{{lista}}</textarea>
+	<br> -->
+
 	<div>
 		<button type="submit" class="btn btn-primary">
 			Salvar

@@ -6,12 +6,29 @@
 
 	<link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap-theme.css">
+	<link rel="stylesheet" href="css/estilos.css">
 	<link rel="shortcut icon" type="image/png" 	href="img/favicon.png">
 </head>
-<body ng-app="smartlist" class="container">
-	<div ng-view></div>
-	
+<body ng-app="smartlist">
+	<nav class="navbar navbar-default">
+		<p class="navbar-text navbar-right" style="margin-right: 20px !important;">
+			<%=msg%><a class="navbar-link" id="usuario-logado"><%=usuarioLogado%></a>
+			<a href="/auth/github"><%=linkAcessar%></a> |
+			<a href="/logout"><%=linkSair%></a>
+		</p>
+	</nav>
 
+	<div class="container">
+		<div class="jumbotron">
+			<h1 class="text-center">
+				SmartList
+			</h1>
+		</div>
+		<div ng-view></div>
+	</div>
+
+	<script src="vendor/jquery/dist/jquery.min.js"></script>
+	<script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="vendor/angular/angular.js"></script>
 	<script src="vendor/angular-route/angular-route.js"></script>
 	<script src="vendor/angular-resource/angular-resource.js"></script>

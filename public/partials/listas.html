@@ -1,40 +1,48 @@
-<div class="jumbotron">
-	<h1 class="text-center">
-		SmartList
-	</h1>
-</div>
 
 <p ng-show="mensagem.texto">{{mensagem.texto}}</p>
 <div class="row">
-	<div class="col-lg-8">
-		<a ng-href="#/lista" class="btn btn-sm btn-success">
+	<div class="col-md-8 col-xs-6">
+		<a ng-href="#/lista" ng-click="initLista()" class="btn btn-sm btn-success">
 			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 			Nova lista
 		</a>
 	</div>
-	<div class="col-lg-4">
+	<div class="col-md-4 col-xs-6" ng-show="listas.length">
     	<div class="input-group-right">
 			<input ng-model="filtro" type="search" placeholder="parte do nome" class="form-control">
 		</div>
 	</div>
 </div>
 <br><br>
-<p class="text-info" ng-show="listas.length">Total de listas cadastradas: {{listas.length}}</p>
-<p class="text-info" ng-hide="listas.length">Não há listas cadastradas.</p>
+<p class="text-info text-center" ng-show="listas.length">Total de listas cadastradas: {{listas.length}}</p>
+<p class="text-info text-center" ng-hide="listas.length">Não há listas cadastradas.</p>
 <div class="table-responsive">
 	<table class="table table-hover">
 		<tr>
-			<th>Lista</th>
-			<th class="text-center">Ação</th>
+			<th>Listas</th>
+			<th class="text-center">Opções</th>
 		</tr>
 		<tr ng-repeat="lista in listas | filter : filtro">
 			<td>
-				<a ng-href="#/lista/{{lista._id}}">{{lista.nome}}</a>
+				<small>
+					<a ng-href="#/lista/{{lista._id}}">
+						<span class="badge">
+							<span ng-show="lista.tipo === 'Mercado'" class="glyphicon glyphicon-shopping-cart"></span>
+							<span ng-show="lista.tipo === 'Tarefas'" class="glyphicon glyphicon-tasks"></span>
+							{{lista.itens.length}}
+						</span>
+					</a>
+				</small>
+				&nbsp;&nbsp;<a ng-href="#/lista/{{lista._id}}">{{lista.titulo}}</a>
 			</td>
 			<td class="text-center">
-				<button class="btn btn-xs btn-warning" title="Remover" ng-click="remove(lista)">
+				<a href="#/listas" class="btn btn-md" title="Notificações" >
+					<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+				</a>
+				&nbsp;&nbsp;
+				<a href="#/listas" class="btn btn-md" title="Remover" ng-click="remove(lista)">
 					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-				</buttom>
+				</a>
 			</td>
 		</tr>
 	</table>

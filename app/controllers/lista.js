@@ -1,11 +1,14 @@
 module.exports = function(app) {
 	
 	var Lista = app.models.Lista;
+	var Usuario = app.models.Usuario;
 
 	var controller = {};
 	
 	controller.listaTodos = function(req, res) {
-		Lista.find().populate('emergencia').exec()
+		var usuarioId = req.user._id;
+		console.log('listaTodos usuarioId:',usuarioId);
+		Lista.find()
 		.then(
 			function(listas) {
 				res.json(listas);
@@ -47,9 +50,7 @@ module.exports = function(app) {
 	
 	controller.salvaLista = function(req, res) {
 		var _id = req.body._id;
-		
-		req.body.emergencia = req.body.emergencia || null;
-
+		var usuarioId = req.user._id;
 		if(_id) {
 			Lista.findByIdAndUpdate(_id, req.body).exec()
 			.then(
@@ -62,6 +63,8 @@ module.exports = function(app) {
 				}
 			);
 		} else {
+			req.body.usuario = req.user._id;
+			console.log('salvando para o usuario:', req.body);
 			Lista.create(req.body)
 			.then(
 				function(lista) {

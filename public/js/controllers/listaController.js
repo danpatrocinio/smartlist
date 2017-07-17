@@ -1,6 +1,19 @@
-angular.module('smartlist').controller('ListaCtrl',
-	function($scope, Lista, $routeParams) {
-				
+(function(){
+
+	'use strict';
+
+	angular.module('smartlist').controller('ListaCtrl',	ListaCtrl);
+
+	ListaCtrl.$inject = ['Lista', '$scope', '$routeParams'];
+
+	function ListaCtrl(Lista, $scope, $routeParams) {
+
+		$scope.login = document.getElementById('usuario-logado').innerHTML;
+		$scope.tipos = ['Mercado', 'Tarefas'];
+		$scope.addItem = addItem;
+		$scope.salva = salva;
+		$scope.removeItem = removeItem;
+
 		if($routeParams.listaId) {
 			Lista.get(
 				{id: $routeParams.listaId}, 
@@ -14,21 +27,35 @@ angular.module('smartlist').controller('ListaCtrl',
 			);
 		} else {
 			$scope.lista = new Lista();
+			$scope.lista.tipo = 'Mercado';
+			$scope.lista.itens = [];
+			console.log('Usuario:', $scope.login);
 		};
 
-		$scope.salva = function() {
+		function salva() {
 			$scope.lista.$save().then(function() {
 				$scope.mensagem = {texto: 'Lista salva com sucesso'};
 					// limpa o formulário
-					$scope.lista = new Lista();
-				})
+					// $scope.lista = new Lista();
+			})
 			.catch(function(erro) {
 				$scope.mensagem = {texto: 'Não foi possível salvar a lista'};
 			});
 		};
 
+		function addItem(){
+			var totalItens = $scope.lista.itens.length;
+			$scope.lista.itens[totalItens] = {};
+		}
+		function removeItem(item) {
+			$scope.lista.itens = $scope.lista.itens.filter(function(it){
+				return it != item;
+			});
+		}
+
 		Lista.query(function(listas) {
 			$scope.listas = listas;
 		});
+	}
 
-});
+})();

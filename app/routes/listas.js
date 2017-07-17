@@ -1,10 +1,4 @@
-function verificaAutenticacao(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  } else {
-    res.status('401').json('Não autorizado');
-  }
-}
+var verificaAutenticacao = require('../../config/auth');
 
 module.exports = function(app) {
 	

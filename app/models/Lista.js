@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
-	
+var Schema = mongoose.Schema;
+
 module.exports = function() {
 
 	var schema = mongoose.Schema({
@@ -8,14 +9,19 @@ module.exports = function() {
 			ref: 'Usuario',
 			required: true
 		},
-		descricao : {
+		titulo : {
 			type : String,
+			unique: true,
 			required : true
 		},
+		tipo : {
+			type : String,
+			required : true,
+			default: 'Mercado'
+		},
 		itens: [{
-			codigo: Number,
 			descricao: {
-				type: String, 
+				type: String,
 				required : true
 			},
 			quantidade: Number,
@@ -24,7 +30,7 @@ module.exports = function() {
 		}],
 		notificacoes: [{
 			dataHora: {
-            	type: Timestamp
+            	type: Date
         	},
 			tipo: {
 				type: String,
@@ -35,11 +41,11 @@ module.exports = function() {
 			}
 		}],
 		dataInclusao: {
-			type: Timestamp,
+			type: Date,
 			default: Date.now
 		},
-		dataChecked: Timestamp,
-		dataRemocao: Timestamp
+		dataChecked: Date,
+		dataRemocao: Date
 	});
 
 	return mongoose.model('Lista', schema);
