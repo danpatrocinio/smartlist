@@ -29,6 +29,7 @@
 			$scope.lista = new Lista();
 			$scope.lista.tipo = 'Mercado';
 			$scope.lista.itens = [];
+			$scope.lista.notificacoes = [];
 		};
 
 		function salva(lista) {

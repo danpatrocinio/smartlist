@@ -13,11 +13,14 @@
 			$scope.filtro = '';
 
 			$scope.buscaListas = buscaListas;
+			$scope.salva = salva;
 			$scope.remove = remove;
+			$scope.edita = edita;
+			$scope.addNotificacao = addNotificacao;
+			$scope.removeNotificacao = removeNotificacao;
 			$scope.init = init;
 
 			function buscaListas() {
-				console.log('buscaListas()');
 				Lista.query(
 						function(data) {
 							$scope.listas = data;
@@ -41,6 +44,36 @@
 						}
 					);
 				};
+			};
+
+			function salva(lista) {
+				console.log(lista);
+				Lista.post(lista, buscaListas, 
+					function(erro) {
+						console.log(erro);
+						$scope.mensagem = {texto : 'Não foi possível salvar a lista.'};
+					}
+				);
+			}
+
+			function edita(lista){
+				$scope.lista = lista;
+			}
+
+			function addNotificacao(){
+				console.log('Inserindo notificação');
+				if (!$scope.lista.notificacoes) {
+					$scope.lista.notificacoes = [];
+				}
+				var totalNotificacoes = $scope.lista.notificacoes.length;
+				$scope.lista.notificacoes[totalNotificacoes] = {};
+			};
+
+			function removeNotificacao(item) {
+				if (!confirm('Deseja remover este item?')) { return; }
+				$scope.lista.notificacoes = $scope.lista.notificacoes.filter(function(notifi){
+					return notifi != item;
+				});
 			};
 
 			function init() {
