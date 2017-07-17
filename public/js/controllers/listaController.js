@@ -29,7 +29,6 @@
 			$scope.lista = new Lista();
 			$scope.lista.tipo = 'Mercado';
 			$scope.lista.itens = [];
-			console.log('Usuario:', $scope.login);
 		};
 
 		function salva(lista) {

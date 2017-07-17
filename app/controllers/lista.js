@@ -7,8 +7,7 @@ module.exports = function(app) {
 	
 	controller.listaTodos = function(req, res) {
 		var usuarioId = req.user._id;
-		console.log('listaTodos usuarioId:',usuarioId);
-		Lista.find()
+		Lista.find({usuario : usuarioId})
 		.then(
 			function(listas) {
 				res.json(listas);
@@ -64,7 +63,6 @@ module.exports = function(app) {
 			);
 		} else {
 			req.body.usuario = req.user._id;
-			console.log('salvando para o usuario:', req.body);
 			Lista.create(req.body)
 			.then(
 				function(lista) {
