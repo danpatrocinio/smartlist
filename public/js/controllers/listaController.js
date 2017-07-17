@@ -32,11 +32,10 @@
 			console.log('Usuario:', $scope.login);
 		};
 
-		function salva() {
+		function salva(lista) {
 			$scope.lista.$save().then(function() {
 				$scope.mensagem = {texto: 'Lista salva com sucesso'};
-					// limpa o formulário
-					// $scope.lista = new Lista();
+				$scope.lista = lista;
 			})
 			.catch(function(erro) {
 				$scope.mensagem = {texto: 'Não foi possível salvar a lista'};
@@ -48,6 +47,7 @@
 			$scope.lista.itens[totalItens] = {};
 		}
 		function removeItem(item) {
+			if (!confirm('Deseja remover este item?')) { return; }
 			$scope.lista.itens = $scope.lista.itens.filter(function(it){
 				return it != item;
 			});
