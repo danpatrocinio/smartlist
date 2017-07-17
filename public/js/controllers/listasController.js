@@ -47,6 +47,8 @@
 			};
 
 			function salva(lista) {
+				console.log('listasController... ');
+				console.log(lista);
 				Lista.post(lista, buscaListas, 
 					function(erro) {
 						console.log(erro);

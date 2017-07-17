@@ -33,9 +33,19 @@
 		};
 
 		function salva(lista) {
+			console.log('listaController... ');
 			$scope.lista.$save().then(function() {
 				$scope.mensagem = {texto: 'Lista salva com sucesso'};
-				$scope.lista = lista;
+				Lista.get(
+					{id: $scope.lista._id}, 
+					function(lista) {
+						$scope.lista = lista;
+					},
+					function(erro) {
+						$scope.mensagem = {texto: 'Não foi possível obter nenhuma lista.'};
+						console.log(erro);
+					}
+				);
 			})
 			.catch(function(erro) {
 				$scope.mensagem = {texto: 'Não foi possível salvar a lista'};
